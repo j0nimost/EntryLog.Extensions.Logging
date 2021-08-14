@@ -1,11 +1,12 @@
 ﻿using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace EntryLog.Extensions.Logging
 {
-    public class EntryLogger : ILogger
+    public class EntryLogger : IEntryLog
     {
         private readonly string _name;
         private readonly Func<EntryLogConfiguration> _getconfig;
@@ -40,12 +41,15 @@ namespace EntryLog.Extensions.Logging
             {
                 case LogType.Audit:
                     // write to Audit Folder
+                    LogType.Audit.StreamWritter(formatter(state, exception));
                     break;
                 case LogType.Error:
                     // write to Audit Folder
+                    LogType.Error.StreamWritter(formatter(state, exception));
                     break;
                 case LogType.Warning:
                     // write to Audit Folder
+                    LogType.Warning.StreamWritter(formatter(state, exception));
                     break;
             }
         }
