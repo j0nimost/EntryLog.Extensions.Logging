@@ -10,17 +10,15 @@ namespace EntryLog.Extensions.Logging
     {
         private readonly string _name;
         private readonly Func<EntryLogConfiguration> _getconfig;
-        private readonly IEntryLog _entry;
 
-        public EntryLogger(string name, Func<EntryLogConfiguration> getConfig, IEntryLog entryLog)
+        public EntryLogger(string name, Func<EntryLogConfiguration> getConfig)
         {
             this._name = name;
             this._getconfig = getConfig;
-            this._entry = entryLog;
         }
         public IDisposable BeginScope<TState>(TState state)
         {
-            throw new NotImplementedException();
+            return default;
         }
 
         public bool IsEnabled(LogLevel logLevel)
@@ -41,15 +39,15 @@ namespace EntryLog.Extensions.Logging
             {
                 case LogType.Audit:
                     // write to Audit Folder
-                    LogType.Audit.StreamWritter(formatter(state, exception));
+                    LogType.Audit.StreamWritter($"{_name} -  {formatter(state, exception)}");
                     break;
                 case LogType.Error:
                     // write to Audit Folder
-                    LogType.Error.StreamWritter(formatter(state, exception));
+                    LogType.Error.StreamWritter($"{_name} -  {formatter(state, exception)}");
                     break;
                 case LogType.Warning:
                     // write to Audit Folder
-                    LogType.Warning.StreamWritter(formatter(state, exception));
+                    LogType.Warning.StreamWritter($"{_name} -  {formatter(state, exception)}");
                     break;
             }
         }
