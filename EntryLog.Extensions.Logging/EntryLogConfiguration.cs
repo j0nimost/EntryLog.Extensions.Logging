@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace EntryLog.Extensions.Logging
 {
@@ -20,9 +21,8 @@ namespace EntryLog.Extensions.Logging
     public class EntryLogConfiguration
     {
         public int EventId { get; set; }
-        public LogInterval LogInterval { get; set; }
-        public Uri FolderPath { get; set; }
-        public bool ShowOnlyMessagesOnError { get; set; }
+        public static LogInterval LogInterval { get; set; } = LogInterval.EveryHour; // Default
+        public static Uri FolderPath { get; set; } = new Uri(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)); // Default Value
 
         public Dictionary<LogLevel, LogType> LogTypes = new Dictionary<LogLevel, LogType>()
         {
