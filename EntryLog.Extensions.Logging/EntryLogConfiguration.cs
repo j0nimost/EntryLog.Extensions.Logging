@@ -21,8 +21,8 @@ namespace EntryLog.Extensions.Logging
     public class EntryLogConfiguration
     {
         public int EventId { get; set; }
-        public static LogInterval LogInterval { get; set; } = LogInterval.EveryHour; // Default
-        public static Uri FolderPath { get; set; } = new Uri(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)); // Default Value
+        public LogInterval LogInterval { get; set; } = LogInterval.EveryHour; // Default
+        public Uri FolderPath { get; set; } = new Uri(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)); // Default Value
 
         public Dictionary<LogLevel, LogType> LogTypes = new Dictionary<LogLevel, LogType>()
         {
