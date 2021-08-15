@@ -7,9 +7,9 @@ namespace EntryLog.Extensions.Logging
 {
     public static class EntryLogHandler
     {
-        private static string FileNameTimeStamp()
+        private static string FileNameTimeStamp(LogInterval interval)
         {
-            switch (EntryLogConfiguration.LogInterval)
+            switch (interval)
             {
                 case LogInterval.EveryDay:
                     return DateTime.Now.ToString("yyyy-MM-dd");
@@ -23,7 +23,7 @@ namespace EntryLog.Extensions.Logging
             return "";
         }
 
-        private static string FolderCheckerorCreater(LogType logType)
+        private static string FolderCheckerorCreater(this Uri path, LogType logType)
         {
             string foldername = "";
 
@@ -44,12 +44,12 @@ namespace EntryLog.Extensions.Logging
             }
 
 
-            string FolderPath = EntryLogConfiguration.FolderPath.LocalPath.ToString() + @"\" + foldername;
+            string FolderPath = path.LocalPath.ToString() + @"\" + foldername;
 
             // Check LocalPath
-            if (!Directory.Exists(EntryLogConfiguration.FolderPath.LocalPath.ToString()))
+            if (!Directory.Exists(path.LocalPath.ToString()))
             {
-                Directory.CreateDirectory(EntryLogConfiguration.FolderPath.LocalPath.ToString());
+                Directory.CreateDirectory(path.LocalPath.ToString());
             }
 
             // Check Folder Path
@@ -61,16 +61,15 @@ namespace EntryLog.Extensions.Logging
             return foldername;
         }
 
-        public static void StreamWritter(this LogType logType, string log)
+        public static void StreamWritter(this EntryLogConfiguration config, LogType logType, string log)
         {
-            string foldername = FolderCheckerorCreater(logType);
+            string foldername = config.FolderPath.FolderCheckerorCreater(logType);
 
+            string currentTimeFilename = FileNameTimeStamp(config.LogInterval);
 
-            if (!String.IsNullOrEmpty(FileNameTimeStamp()))
+            if (!String.IsNullOrEmpty(currentTimeFilename) && !String.IsNullOrEmpty(foldername))
             {
-                string currentTimeFilename = FileNameTimeStamp();
-
-                string path = EntryLogConfiguration.FolderPath.LocalPath.ToString() + "\\" + foldername + "\\" + currentTimeFilename + " - " + $"{foldername}.log";
+                string path = config.FolderPath.LocalPath.ToString() + "\\" + foldername + "\\" + currentTimeFilename + " - " + $"{foldername}.log";
 
                 var fileStreamer = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
                 var streamWriter = new StreamWriter(fileStreamer);
