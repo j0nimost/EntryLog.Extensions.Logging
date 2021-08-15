@@ -39,15 +39,15 @@ namespace EntryLog.Extensions.Logging
             {
                 case LogType.Audit:
                     // write to Audit Folder
-                    LogType.Audit.StreamWritter($"{_name} -  {formatter(state, exception)}");
+                    config.StreamWritter(LogType.Audit,$"{_name} -  {formatter(state, exception)}");
                     break;
                 case LogType.Error:
                     // write to Audit Folder
-                    LogType.Error.StreamWritter($"{_name} -  {formatter(state, exception)}");
+                    config.StreamWritter(LogType.Error,$"{_name} -  {formatter(state, exception)}");
                     break;
                 case LogType.Warning:
                     // write to Audit Folder
-                    LogType.Warning.StreamWritter($"{_name} -  {formatter(state, exception)}");
+                    config.StreamWritter(LogType.Warning,$"{_name} -  {formatter(state, exception)}");
                     break;
             }
         }
