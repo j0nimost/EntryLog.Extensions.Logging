@@ -1,10 +1,10 @@
 ## EntryLog.Extensions.Logging
-An Extension Library for `Microsoft.Extensions.Logging` using the default implementation of [EntryLog Lib](https://github.com/j0nimost/EntryLog).
+An Extension Library for `Microsoft.Extensions.Logging` using the default implementation of [EntryLog Lib](https://github.com/j0nimost/EntryLog). \
+Download the latest version using `Install-Package EntryLog.Extensions.Logging`. \
+Else choose a specific version [here](https://www.nuget.org/packages/EntryLog.Extensions.Logging)
 
 ### Implementation
 The library comes in handy when writing logs from the robust `ILogger` library.
-
-* Download the extension library [here]()
 
 - Implementation is done in the `Program.cs` like so:
 ```c#
@@ -18,7 +18,7 @@ static IHostBuilder CreateHostBuilder(string[] args) =>
                     }));
 ```
 
-- To remove default logging extensions i.e Console use `builder.ClearProviders()`. 
+- To remove default logging extensions i.e Console use `builder.ClearProviders()`. \
 So the implementation changes to:
 
 ```c#
@@ -26,11 +26,21 @@ Host.CreateDefaultBuilder(args)
                 .ConfigureLogging(builder =>
                     builder.ClearProviders().AddEntryLog()
 ```
+### DefaultS
+There are 2 default values set:
+- Logging Folder Path : Directory Where the service is running
+- Logging Interval : Every hour 
+
+
+#### Note:
+The DEFAULT values can be changed as shown in the implementation. \
+There are 3 logging levels supported:
+- LogInformation
+- LogWarning
+- LogError
 
 ### .Net Support
-|      .Net Core
-|________________________|
-| 2.1, 2.2, 3.0, 3.1, 5.0|
+2.1, 2.2, 3.0, 3.1, 5.0
 
 
 ### Author
