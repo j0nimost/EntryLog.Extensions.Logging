@@ -1,6 +1,7 @@
 ## EntryLog.Extensions.Logging
 An Extension Library for `Microsoft.Extensions.Logging` using the default implementation of [EntryLog Lib](https://github.com/j0nimost/EntryLog). \
-Download the extension library [here]()
+Download the latest version using `Install-Package EntryLog.Extensions.Logging`. \
+Else choose a specific version [here](https://www.nuget.org/packages/EntryLog.Extensions.Logging)
 
 ### Implementation
 The library comes in handy when writing logs from the robust `ILogger` library.
